@@ -1,9 +1,9 @@
 package com.example.newmovie2.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.example.newmovie2.apiservices.MovieApi
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 enum class MovieApiStatus {LOADING, DONE, ERROR}
 
@@ -15,4 +15,16 @@ class SearchFragmentVM : ViewModel() {
     private val _movieTitle = MutableLiveData<MovieApiStatus>()
 
     val movieTitle : LiveData<MovieApiStatus> = _movieTitle
+
+    fun getMovieTitle(query : String) {
+        _status.value = MovieApiStatus.LOADING
+        viewModelScope.launch {
+            try {
+                MovieApi.retrofitService.getTitle(query).results
+                _status.value = MovieApiStatus.DONE
+            }catch(e: Exception){
+                _status.value = MovieApiStatus.ERROR
+            }
+        }
+    }
 }
