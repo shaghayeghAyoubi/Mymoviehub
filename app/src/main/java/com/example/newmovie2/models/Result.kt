@@ -8,8 +8,6 @@ data class Result(
     val id: String,
     @SerializedName("image")
     val image: Image,
-    @SerializedName("numberOfEpisodes")
-    val numberOfEpisodes: Int,
     @SerializedName("runningTimeInMinutes")
     val runningTimeInMinutes: Int,
     @SerializedName("title")

@@ -1,7 +1,7 @@
 package com.example.newmovie2.apiservices
 
+import com.example.newmovie2.modeldetail.DetailResponse
 import com.example.newmovie2.models.Response
-import com.example.newmovie2.models.Result
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -28,8 +28,9 @@ interface MovieApiService {
         "x-rapidapi-host': 'imdb8.p.rapidapi.com",
         "x-rapidapi-key': '3756b5f303mshab9d47fafa9b6abp1e0e53jsnb03b1553b9e1"
     )
-    @GET("title/get-details")
-    suspend fun getDetail(@Query("tconst") detail: String): Result
+    @GET("title/get-overview-details")
+    suspend fun getDetail(@Query("tconst") detail: String): DetailResponse
+
 }
 /**
  * A public Api object that exposes the lazy-initilaized Retrofit service
