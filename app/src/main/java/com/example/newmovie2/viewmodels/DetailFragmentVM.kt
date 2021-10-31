@@ -10,24 +10,23 @@ import com.example.newmovie2.models.Result
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class DetailFragmentVM: ViewModel() {
+class DetailFragmentVM : ViewModel() {
     private val _status = MutableLiveData<MovieApiStatus>()
 
-    val status : LiveData<MovieApiStatus> = _status
+    val status: LiveData<MovieApiStatus> = _status
 
     private val _movieDetail = MutableLiveData<DetailResponse>()
 
     val movieDetail = _movieDetail
 
 
-
-    fun getMovieDetail(query : String) {
+    fun getMovieDetail(query: String) {
         _status.value = MovieApiStatus.LOADING
         viewModelScope.launch {
-            try{
-                MovieApi.retrofitService.getDetail(query)
+            try {
+                _movieDetail.value = MovieApi.retrofitService.getDetail(query)
                 _status.value = MovieApiStatus.DONE
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 _status.value = MovieApiStatus.ERROR
             }
         }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.SearchFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusableInTouchMode="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:focusableInTouchMode="true"
+    tools:context=".fragments.SearchFragment">
+
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
@@ -13,57 +15,59 @@
         android:layout_margin="28dp"
         android:background="@drawable/ic_search_view"
         android:iconifiedByDefault="true"
+        android:imeOptions="actionSearch"
         android:queryHint="Search your movie here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:imeOptions="actionSearch"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/result_movie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/result_movie"
+        android:layout_margin="32dp"
         android:text="Movies"
-        app:layout_constraintTop_toBottomOf="@id/search_view"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_margin="32dp"
-        app:layout_constraintStart_toStartOf="parent"
         android:visibility="invisible"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result_movie"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="32dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/result_movie" />
 
     <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_weight="1"
-        android:minHeight="40dp"
-        android:minWidth="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result_movie"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/connection_error"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_weight="1"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result_movie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/result_movie" />
+
+    <ImageView
+        android:id="@+id/connection_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_connection_error"
         android:visibility="gone"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/result_movie" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

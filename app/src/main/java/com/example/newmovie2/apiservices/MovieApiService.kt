@@ -1,13 +1,16 @@
 package com.example.newmovie2.apiservices
 
-import com.example.newmovie2.modeldetail.DetailResponse
+import com.example.newmovie2.models.DetailResponse
 import com.example.newmovie2.models.Response
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
 private const val BASE_URI = "https://imdb8.p.rapidapi.com/"
+
 
 private var retrofit = retrofit2.Retrofit.Builder()
     .baseUrl(BASE_URI)
@@ -17,26 +20,27 @@ private var retrofit = retrofit2.Retrofit.Builder()
 interface MovieApiService {
     @Headers(
         "Accept: application/json",
-        "x-rapidapi-host': 'imdb8.p.rapidapi.com",
-        "x-rapidapi-key': '3756b5f303mshab9d47fafa9b6abp1e0e53jsnb03b1553b9e1"
+        "x-rapidapi-host: imdb8.p.rapidapi.com",
+        "x-rapidapi-key: 3756b5f303mshab9d47fafa9b6abp1e0e53jsnb03b1553b9e1"
     )
-    @GET("find/title")
+    @GET("title/find")
     suspend fun getTitle(@Query("q") search: String): Response
 
     @Headers(
         "Accept: application/json",
-        "x-rapidapi-host': 'imdb8.p.rapidapi.com",
-        "x-rapidapi-key': '3756b5f303mshab9d47fafa9b6abp1e0e53jsnb03b1553b9e1"
+        "x-rapidapi-host: imdb8.p.rapidapi.com",
+        "x-rapidapi-key: 3756b5f303mshab9d47fafa9b6abp1e0e53jsnb03b1553b9e1"
     )
     @GET("title/get-overview-details")
     suspend fun getDetail(@Query("tconst") detail: String): DetailResponse
 
 }
+
 /**
  * A public Api object that exposes the lazy-initilaized Retrofit service
  */
 
 object MovieApi {
-    val retrofitService: MovieApiService by lazy { retrofit.create(MovieApiService::class.java)}
+    val retrofitService: MovieApiService by lazy { retrofit.create(MovieApiService::class.java) }
 }
 

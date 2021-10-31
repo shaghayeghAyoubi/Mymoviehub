@@ -17,13 +17,19 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.newmovie2.fragments.DetailFragment"
-        android:label="@string/fragment_detail"
+        android:label="{name}"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true"
+           />
         <argument
             android:name="id"
+            app:argType="string"/>
+        <argument
+            android:name="name"
             app:argType="string"/>
     </fragment>
 </navigation>

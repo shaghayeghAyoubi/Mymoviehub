@@ -1,11 +1,14 @@
 package com.example.newmovie2.fragments
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.SearchView
@@ -51,10 +54,6 @@ class SearchFragment : Fragment() {
 //        }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(p0: String?): Boolean {
                 if(searchView.query.isNullOrBlank()) {
                     val text = "there is no match"
                     val duration = Toast.LENGTH_SHORT
@@ -64,7 +63,14 @@ class SearchFragment : Fragment() {
                 } else {
                     searchViewModel.getMovieTitle(searchView.query.toString())
                 }
+                val `in` =
+                    activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                `in`.hideSoftInputFromWindow(searchView.getWindowToken(), 0)
                 return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
             }
         })
         val mAdapter = MovieAdapter(requireContext())
@@ -77,14 +83,19 @@ class SearchFragment : Fragment() {
         })
 
         searchViewModel.status.observe(viewLifecycleOwner, {
-            if(it == MovieApiStatus.LOADING) {
-                progressBar.visibility = View.VISIBLE
-                errorConnection.visibility = View.GONE
-            }else if(it == MovieApiStatus.DONE) {
-                progressBar.visibility = View.GONE
-                errorConnection.visibility = View.GONE
-            } else if(it == MovieApiStatus.ERROR) {
-                errorConnection.visibility = View.VISIBLE
+            when (it!!) {
+                MovieApiStatus.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                    errorConnection.visibility = View.GONE
+                }
+                MovieApiStatus.DONE -> {
+                    progressBar.visibility = View.GONE
+                    errorConnection.visibility = View.GONE
+                }
+                MovieApiStatus.ERROR -> {
+                    errorConnection.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                }
             }
         })
     }
@@ -92,4 +103,6 @@ class SearchFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

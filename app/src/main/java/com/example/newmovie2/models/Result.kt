@@ -7,7 +7,7 @@ data class Result(
     @SerializedName("id")
     val id: String,
     @SerializedName("image")
-    val image: Image,
+    val image: Image?,
     @SerializedName("runningTimeInMinutes")
     val runningTimeInMinutes: Int,
     @SerializedName("title")

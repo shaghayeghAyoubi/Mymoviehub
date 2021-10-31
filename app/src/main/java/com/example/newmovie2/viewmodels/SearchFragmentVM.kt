@@ -21,7 +21,7 @@ class SearchFragmentVM : ViewModel() {
         _status.value = MovieApiStatus.LOADING
         viewModelScope.launch {
             try {
-                MovieApi.retrofitService.getTitle(query).results
+                _movieTitle.value = MovieApi.retrofitService.getTitle(query).results
                 _status.value = MovieApiStatus.DONE
             }catch(e: Exception){
                 _status.value = MovieApiStatus.ERROR
