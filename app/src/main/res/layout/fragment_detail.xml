@@ -11,6 +11,13 @@
     app:strokeColor="@color/black"
     app:cardElevation="10dp"
     >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         tools:context=".fragments.ProduceDetailFragment"
         android:layout_width="match_parent"
@@ -19,6 +26,7 @@
         android:padding="16dp"
         >
         <ImageView
+            android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/movieimage"
@@ -28,7 +36,9 @@
             app:layout_constraintBottom_toTopOf="@id/title"
             />
         <TextView
+            android:textColor="@color/black"
             android:id="@+id/title"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +47,8 @@
             android:layout_marginTop="10dp"
             />
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:id="@+id/titleype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +58,8 @@
             android:layout_marginTop="10dp"
             />
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:id="@+id/ratings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,6 +70,8 @@
             />
 
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/releaseDate"
@@ -64,6 +80,8 @@
             app:layout_constraintTop_toBottomOf="@id/ratings"
             android:layout_marginTop="10dp"/>
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/year"
@@ -73,6 +91,8 @@
             android:layout_marginTop="10dp"
             />
         <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:maxLines="4"
             android:lines="4"
             android:layout_width="wrap_content"
@@ -103,6 +123,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/loading_img"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </com.google.android.material.card.MaterialCardView>

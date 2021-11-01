@@ -9,11 +9,11 @@ data class Result(
     @SerializedName("image")
     val image: Image?,
     @SerializedName("runningTimeInMinutes")
-    val runningTimeInMinutes: Int,
+    val runningTimeInMinutes: Int?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
     @SerializedName("titleType")
-    val titleType: String,
+    val titleType: String?,
     @SerializedName("year")
-    val year: Int
+    val year: Int?
 )

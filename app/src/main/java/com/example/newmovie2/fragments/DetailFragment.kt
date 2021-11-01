@@ -1,5 +1,7 @@
 package com.example.newmovie2.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,24 +18,27 @@ import com.example.newmovie2.databinding.FragmentDetailBinding
 import com.example.newmovie2.viewmodels.DetailFragmentVM
 import com.example.newmovie2.viewmodels.MovieApiStatus
 import com.example.newmovie2.viewmodels.SearchFragmentVM
+import android.widget.LinearLayout
+import kotlin.properties.Delegates
 
 
 class DetailFragment : Fragment() {
 
-    private var _binding : FragmentDetailBinding? = null
+    private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private lateinit var imageMovie : ImageView
-    private lateinit var title : TextView
-    private lateinit var titleType : TextView
-    private lateinit var rating : TextView
-    private lateinit var releaseDate : TextView
-    private lateinit var year : TextView
-    private lateinit var summary : TextView
-    private lateinit var connectionError : ImageView
-    private lateinit var loadingError : ImageView
-    private lateinit var id :String
+    private lateinit var imageMovie: ImageView
+    private lateinit var title: TextView
+    private lateinit var titleType: TextView
+    private lateinit var rating: TextView
+    private lateinit var releaseDate: TextView
+    private lateinit var year: TextView
+    private lateinit var summary: TextView
+    private lateinit var connectionError: ImageView
+    private lateinit var loadingError: ImageView
+    private lateinit var id: String
 
-    private val detailViewModel : DetailFragmentVM by viewModels()
+
+    private val detailViewModel: DetailFragmentVM by viewModels()
     val args: DetailFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +55,7 @@ class DetailFragment : Fragment() {
         id = args.id
         detailViewModel.getMovieDetail(id)
         detailViewModel.movieDetail.observe(viewLifecycleOwner, {
-            if(it.title?.image != null && it.title.image.url.isNotBlank()) {
+            if (it.title?.image != null && it.title.image.url.isNotBlank()) {
                 Glide.with(requireContext()).load(it.title.image.url)
                     .into(imageMovie)
             }
@@ -60,6 +65,32 @@ class DetailFragment : Fragment() {
             releaseDate.text = it.releaseDate
             year.text = it.title?.year.toString()
             summary.text = it.plotSummary?.text
+            val url = it.title?.image?.url
+            imageMovie.setOnClickListener {
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.setDataAndType(Uri.parse(url), "image/*")
+                startActivity(intent)
+//            if (isImageFitToScreen) {
+//                isImageFitToScreen = false
+//                imageMovie.setLayoutParams(
+//                    LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.WRAP_CONTENT,
+//                        LinearLayout.LayoutParams.WRAP_CONTENT
+//                    )
+//                )
+//                imageMovie.setAdjustViewBounds(true)
+//            } else {
+//                isImageFitToScreen = true
+//                imageMovie.setLayoutParams(
+//                    LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        LinearLayout.LayoutParams.MATCH_PARENT
+//                    )
+//                )
+//                imageMovie.setScaleType(ImageView.ScaleType.FIT_XY)
+//            }
+            }
 
         })
         detailViewModel.status.observe(viewLifecycleOwner, {
@@ -80,8 +111,9 @@ class DetailFragment : Fragment() {
         })
 
     }
+
     private fun initView() {
-        imageMovie= binding.movieimage
+        imageMovie = binding.movieimage
         title = binding.title
         titleType = binding.titleype
         rating = binding.ratings
@@ -94,3 +126,5 @@ class DetailFragment : Fragment() {
     }
 
 }
+
+

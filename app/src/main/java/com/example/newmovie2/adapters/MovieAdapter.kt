@@ -89,7 +89,9 @@ class MovieAdapter(private val context: Context) :
 
         holder.view.setOnClickListener {
             val id = data[position].id.split("/")[2]
-            val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(id, data[position].title)
+            val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(id,
+                data[position].title.toString()
+            )
             holder.view.findNavController().navigate(action)
         }
     }

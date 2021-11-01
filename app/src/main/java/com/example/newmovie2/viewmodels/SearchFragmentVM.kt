@@ -1,5 +1,6 @@
 package com.example.newmovie2.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.newmovie2.apiservices.MovieApi
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ class SearchFragmentVM : ViewModel() {
 
     val movieTitle : LiveData<List<Result>> = _movieTitle
 
+
     fun getMovieTitle(query : String) {
         _status.value = MovieApiStatus.LOADING
         viewModelScope.launch {
@@ -24,6 +26,7 @@ class SearchFragmentVM : ViewModel() {
                 _movieTitle.value = MovieApi.retrofitService.getTitle(query).results
                 _status.value = MovieApiStatus.DONE
             }catch(e: Exception){
+                Log.d("sadaasdasda", "getMovieTitle: $e")
                 _status.value = MovieApiStatus.ERROR
             }
         }
