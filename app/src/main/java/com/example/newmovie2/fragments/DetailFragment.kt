@@ -64,6 +64,7 @@ class DetailFragment : Fragment() {
             rating.text = it.ratings.toString()
             releaseDate.text = it.releaseDate
             year.text = it.title?.year.toString()
+            val mTitle = it.title?.title
             summary.text = it.plotSummary?.text
             val url = it.title?.image?.url
             imageMovie.setOnClickListener {
@@ -91,7 +92,13 @@ class DetailFragment : Fragment() {
 //                imageMovie.setScaleType(ImageView.ScaleType.FIT_XY)
 //            }
             }
-
+            var i = 0
+            println(i++)
+            println(++i)
+            binding.btn.setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/search?q=${mTitle?.replace(" ", "+")}"))
+                startActivity(browserIntent)
+            }
         })
         detailViewModel.status.observe(viewLifecycleOwner, {
             when (it!!) {
